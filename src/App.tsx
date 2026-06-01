@@ -1,12 +1,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AppLayout from "./components/AppLayout";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    element: <></>,
+    element: <AppLayout />,
     children: [
       { path: "/", element: <></> },
       { path: "/shopping-cart", element: <></> },
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
@@ -24,5 +25,3 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-export default App;
