@@ -3,7 +3,7 @@ import bannerImg from "../../assets/books.png";
 
 export default function Banner() {
   return (
-    <section className="w-full bg-orange-300 h-60 flex justify-between items-center">
+    <section className="w-full bg-orange-300 h-60 flex justify-between items-center max-w-6xl mx-auto">
       <img src={bannerImg} alt="books" className="w-60 mr-14" />
       <div className="ml-20 text-2xl font-bold">
         <p className="text-orange-50">کـتـابـی کــــه دنبالــش بودی</p>

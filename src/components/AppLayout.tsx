@@ -5,7 +5,7 @@ export default function AppLayout() {
   return (
     <>
       <Header />
-      <main className="max-w-6xl mx-auto bg-gray-50">
+      <main className="mx-auto bg-gray-50">
         <Outlet />
       </main>
       <footer></footer>

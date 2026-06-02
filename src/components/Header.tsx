@@ -6,7 +6,7 @@ import HeaderForm from "./HeaderForm";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-center w-full p-4 font-noto bg-gray-100">
+    <header className="flex items-center justify-center w-full p-4 font-noto bg-gray-50">
       <Link to="/" className="flex items-center" title="خانه">
         <img src={logo} alt="logo" className="w-12" />
       </Link>
