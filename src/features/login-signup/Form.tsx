@@ -12,7 +12,6 @@ export default function Form({ title, children, linkText, linkTitle, url }) {
       <img src={booksImg} alt="لوگو" className="w-24" />
       <p className="text-white font-bold text-3xl">{title}</p>
       {children}
-
       <p className="mt-2 text-sm">
         <span className="text-gray-400">{linkText}</span>
         <Link
