@@ -4,11 +4,11 @@ export default function HeaderForm() {
       <input
         type="text"
         placeholder="دنبال چه کتابی میگردی؟"
-        className="w-64 outline-none px-1.5 h-full text-sm"
+        className="w-64 outline-none px-1.5 h-full text-sm font-medium"
       />
       <button
         type="button"
-        className="bg-yellow-500 hover:bg-yellow-400 transition-all duration-400 h-full w-18 pb-1 text-sm cursor-pointer"
+        className="bg-orange-300 hover:bg-orange-400 transition-all duration-400 h-full w-18 pb-1 text-sm font-medium cursor-pointer"
       >
         جستجو
       </button>
