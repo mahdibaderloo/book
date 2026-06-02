@@ -2,8 +2,16 @@ import { Link } from "react-router-dom";
 
 import { IoIosArrowBack } from "react-icons/io";
 import booksImg from "../../assets/books.png";
+import Button from "./Button";
 
-export default function Form({ title, children, linkText, linkTitle, url }) {
+export default function Form({
+  title,
+  children,
+  linkText,
+  linkTitle,
+  url,
+  buttonTitle,
+}) {
   return (
     <form className="absolute top-30 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg flex flex-col justify-center items-center p-4 w-90">
       <Link to="/" className="w-full flex justify-end">
@@ -21,9 +29,7 @@ export default function Form({ title, children, linkText, linkTitle, url }) {
           {linkTitle}
         </Link>
       </p>
-      <button className="flex items-center justify-center bg-gray-950 hover:bg-gray-900 hover:shadow transition-all duration-400 text-gray-50 rounded-xl p-2 pb-3 w-[90%] mt-10 cursor-pointer font-medium text-lg">
-        <span>ورود</span>
-      </button>
+      <Button title={buttonTitle} />
     </form>
   );
 }

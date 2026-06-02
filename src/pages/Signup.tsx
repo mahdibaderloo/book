@@ -48,9 +48,10 @@ export default function Signup() {
         linkText="حساب کاربری داری؟"
         linkTitle="ورود"
         url="/login"
+        buttonTitle="ثبت نام"
       >
         {inputs.map((input) => {
-          return input.id === 2 ? (
+          return input.id === 3 ? (
             <FormInput
               key={input.id}
               type={showPassword ? "text" : "password"}

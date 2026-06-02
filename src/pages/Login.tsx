@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { HiOutlineMail } from "react-icons/hi";
 import backgroundImg from "../assets/background.png";
 import Form from "../features/login-signup/Form";
 import FormInput from "../features/login-signup/FormInput";
 import { TbLockPassword } from "react-icons/tb";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const inputs = [
   {
@@ -22,6 +24,12 @@ const inputs = [
 ];
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  function handleShowPasswordToggle() {
+    setShowPassword((s) => !s);
+  }
+
   return (
     <div
       className="h-screen relative overflow-hidden"
@@ -33,16 +41,39 @@ export default function Login() {
         linkText="حساب کاربری نداری؟"
         linkTitle="ثبت نام"
         url="/signup"
+        buttonTitle="ورود"
       >
-        {inputs.map((input) => (
-          <FormInput
-            key={input.id}
-            type={input.type}
-            mt={input.mt}
-            placeholder={input.placeholder}
-            icon={input.icon}
-          />
-        ))}
+        {inputs.map((input) => {
+          return input.id === 2 ? (
+            <FormInput
+              key={input.id}
+              type={showPassword ? "text" : "password"}
+              mt={input.mt}
+              placeholder={input.placeholder}
+              icon={input.icon}
+            >
+              {showPassword ? (
+                <FaRegEye
+                  className="text-xl text-gray-700 cursor-pointer"
+                  onClick={handleShowPasswordToggle}
+                />
+              ) : (
+                <FaRegEyeSlash
+                  className="text-xl text-gray-700 cursor-pointer"
+                  onClick={handleShowPasswordToggle}
+                />
+              )}
+            </FormInput>
+          ) : (
+            <FormInput
+              key={input.id}
+              type={input.type}
+              mt={input.mt}
+              placeholder={input.placeholder}
+              icon={input.icon}
+            />
+          );
+        })}
       </Form>
     </div>
   );
