@@ -1,4 +1,12 @@
-export default function FormInput({ children, type, placeholder, icon, mt }) {
+import type { FormInputProps } from "../../types/types";
+
+export default function FormInput({
+  children,
+  type,
+  placeholder,
+  icon,
+  mt,
+}: FormInputProps) {
   return (
     <div
       className={`flex gap-1 bg-gray-300 rounded-xl p-2 items-center mt-${mt} w-[90%]`}

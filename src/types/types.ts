@@ -8,3 +8,11 @@ export interface FormProps {
   linkTitle: string;
   linkText: string;
 }
+
+export interface FormInputProps {
+  children?: ReactNode;
+  type: string;
+  placeholder: string;
+  icon: ReactNode;
+  mt: number;
+}
