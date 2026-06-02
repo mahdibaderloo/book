@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import type { FormProps } from "../../types/types";
 
 import { IoIosArrowBack } from "react-icons/io";
 import booksImg from "../../assets/books.png";
@@ -11,7 +12,7 @@ export default function Form({
   linkTitle,
   url,
   buttonTitle,
-}) {
+}: FormProps) {
   return (
     <form className="absolute top-30 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg flex flex-col justify-center items-center p-4 w-90">
       <Link to="/" className="w-full flex justify-end">
