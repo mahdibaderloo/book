@@ -21,7 +21,7 @@ export default function Login() {
       <div className="bg-black h-screen opacity-80" />
       <form className="absolute top-50 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg flex flex-col justify-center items-center p-4 w-90">
         <img src={booksImg} alt="لوگو" className="w-24" />
-        <p className="text-white font-bold text-3xl">ورود به حساب کابری</p>
+        <p className="text-white font-bold text-3xl">خوش برگشتی</p>
         <div className="flex gap-1 bg-gray-300 rounded-xl p-2 items-center mt-8 w-[90%]">
           <input
             type="email"
