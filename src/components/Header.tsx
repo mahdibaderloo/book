@@ -5,14 +5,14 @@ import logo from "../assets/logo.png";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-center w-full p-4">
+    <header className="flex items-center justify-center w-full p-4 font-noto">
       <Link to="/" className="flex items-center">
         <img src={logo} alt="logo" className="w-12" />
       </Link>
       <form className="flex items-center justify-center h-8 border-2 border-gray-400 rounded-2xl overflow-hidden mx-6 shadow">
         <input
           type="text"
-          placeholder="دنبال چه کتابی میگردی؟..."
+          placeholder="دنبال چه کتابی میگردی؟"
           className="w-64 outline-none px-1.5 h-full text-sm"
         />
         <button
