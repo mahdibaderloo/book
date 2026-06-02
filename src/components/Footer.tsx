@@ -1,19 +1,10 @@
-import { CiDeliveryTruck, CiTimer } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import FooterBenefitSection from "./FooterBenefitSection";
 
 export default function Footer() {
   return (
     <footer className="p-4">
-      <section className="flex justify-center gap-8 border-b-2 border-gray-900/10 pb-8">
-        <div className="flex items-center">
-          <CiDeliveryTruck size={120} />
-          <p className="text-lg font-bold pr-2">ارسال رایگان</p>
-        </div>
-        <div className="border-r-4 border-gray-900/20 flex items-center pr-6">
-          <CiTimer size={100} />
-          <p className="text-lg font-bold pr-2">پشتیبانی ۲۴ ساعته</p>
-        </div>
-      </section>
+      <FooterBenefitSection />
       <section className="border-b-2 border-gray-900/10 py-8 flex justify-center items-center gap-16">
         <ul className="flex flex-col gap-2">
           <p className="text-sm font-medium mb-4">دسترسی سریع</p>
