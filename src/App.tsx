@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import ShoppingCart from "./pages/ShoppingCart";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/shopping-cart", element: <ShoppingCart /> },
+      { path: "/dashboard", element: <Dashboard /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
     ],
