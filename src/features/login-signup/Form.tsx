@@ -3,7 +3,7 @@ import type { FormProps } from "../../types/types";
 
 import { IoIosArrowBack } from "react-icons/io";
 import booksImg from "../../assets/books.png";
-import Button from "./Button";
+import Button from "../../components/Button";
 
 export default function Form({
   title,

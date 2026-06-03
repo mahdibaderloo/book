@@ -1,4 +1,5 @@
 import CartItems from "../features/cart/CartItems";
+import Total from "../features/cart/Total";
 
 export default function ShoppingCart() {
   return (
@@ -7,6 +8,7 @@ export default function ShoppingCart() {
         سبد خرید
       </h3>
       <CartItems />
+      <Total />
     </div>
   );
 }
