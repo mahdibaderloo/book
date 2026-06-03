@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import type { FormProps } from "../../types/types";
 
-import { IoIosArrowBack } from "react-icons/io";
 import booksImg from "../../assets/books.png";
 import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
 
 export default function Form({
   title,
@@ -15,9 +15,7 @@ export default function Form({
 }: FormProps) {
   return (
     <form className="absolute top-30 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg flex flex-col justify-center items-center p-4 w-90">
-      <Link to="/" className="w-full flex justify-end">
-        <IoIosArrowBack className="text-gray-200 hover:text-gray-400 text-2xl cursor-pointer transition-all duration-400" />
-      </Link>
+      <BackButton />
       <img src={booksImg} alt="لوگو" className="w-24" />
       <p className="text-white font-bold text-3xl">{title}</p>
       {children}
@@ -30,7 +28,7 @@ export default function Form({
           {linkTitle}
         </Link>
       </p>
-      <Button title={buttonTitle} />
+      <Button title={buttonTitle} mt="8" />
     </form>
   );
 }

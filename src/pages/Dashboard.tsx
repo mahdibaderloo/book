@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
-import backgroundImg from "../assets/background.png";
-import { IoIosArrowBack } from "react-icons/io";
 import Button from "../components/Button";
+import BackButton from "../components/BackButton";
+import backgroundImg from "../assets/background.png";
 
 export default function Dashboard() {
   return (
@@ -11,9 +10,7 @@ export default function Dashboard() {
     >
       <div className="bg-black h-screen opacity-80" />
       <div className="absolute top-30 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg p-4 w-3xl flex flex-col justify-center items-center">
-        <Link to="/" className="w-full flex justify-end">
-          <IoIosArrowBack className="text-gray-200 hover:text-gray-400 text-2xl cursor-pointer transition-all duration-400" />
-        </Link>
+        <BackButton />
         <img
           src=""
           alt="پروفایل"
