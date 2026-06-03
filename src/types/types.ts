@@ -16,3 +16,9 @@ export interface FormInputProps {
   icon: ReactNode;
   mt: number;
 }
+
+export interface ButtonProps {
+  title: string;
+  width?: string;
+  mt?: string;
+}
