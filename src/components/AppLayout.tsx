@@ -4,7 +4,10 @@ import Footer from "./Footer";
 
 export default function AppLayout() {
   const { pathname } = useLocation();
-  const isLoginPage = pathname.includes("login") || pathname.includes("signup");
+  const isLoginPage =
+    pathname.includes("login") ||
+    pathname.includes("signup") ||
+    pathname.includes("dashboard");
 
   return (
     <>
