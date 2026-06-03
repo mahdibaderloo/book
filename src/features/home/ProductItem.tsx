@@ -1,6 +1,6 @@
 export default function ProductItem() {
   return (
-    <li className="flex flex-col p-2 rounded-lg overflow-hidden shadow bg-white">
+    <li className="flex flex-col p-2 rounded-lg overflow-hidden shadow bg-white hover:scale-[1.02] transition-all">
       <div className="w-36 h-36 bg-gray-50 shadow rounded-lg overflow-hidden cursor-pointer">
         <img src="" alt="" />
       </div>
