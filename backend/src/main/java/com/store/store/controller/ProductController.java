@@ -24,5 +24,11 @@ public class ProductController {
     public Product add(@RequestBody Product product) {
         return repository.save(product);
     }
+
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+    }
 }
 
