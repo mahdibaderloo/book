@@ -22,3 +22,13 @@ export interface ButtonProps {
   width?: string;
   mt?: string;
 }
+
+export interface Book {
+  id: number;
+  title: string;
+  description: string;
+  author: string;
+  publisher: string;
+  imageUrl: string;
+  price: number;
+}

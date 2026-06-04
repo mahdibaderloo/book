@@ -1,14 +1,14 @@
 import Loading from "../../components/Loading";
 import { useBooks } from "../../hooks/useBooks";
+import type { Book } from "../../types/types";
 import ProductItem from "./ProductItem";
 
 export default function Products() {
-  const { data: books, isLoading, error } = useBooks();
+  const { data: books, isLoading } = useBooks();
 
   if (isLoading) {
     return <Loading />;
   }
-  console.log(error);
 
   return (
     <div className="mt-4 p-4 max-w-6xl mx-auto scroll-mt-24" id="products">
@@ -16,7 +16,7 @@ export default function Products() {
         محصولات
       </p>
       <ul className="flex justify-center items-center flex-wrap gap-2 mt-8">
-        {books?.map((book) => (
+        {books?.map((book: Book) => (
           <ProductItem key={book.id} book={book} />
         ))}
       </ul>
