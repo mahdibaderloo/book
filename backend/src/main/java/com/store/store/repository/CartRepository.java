@@ -1,14 +1,14 @@
 package com.store.store.repository;
 
-import com.store.store.entity.User;
+import com.store.store.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository
-        extends JpaRepository<User, Long> {
+public interface CartRepository
+        extends JpaRepository<Cart, Long> {
 
-    Optional<User> findByEmail(String email);
+    Optional<Cart> findByUserId(Long userId);
 }
