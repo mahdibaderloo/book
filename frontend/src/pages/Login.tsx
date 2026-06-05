@@ -1,10 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { HiOutlineMail } from "react-icons/hi";
 import backgroundImg from "../assets/background.png";
 import Form from "../features/login-signup/Form";
 import FormInput from "../features/login-signup/FormInput";
 import { TbLockPassword } from "react-icons/tb";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useLogin } from "../hooks/useLogin";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/slices/userSlice";
 
 const inputs = [
   {
@@ -24,7 +27,33 @@ const inputs = [
 ];
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { mutate } = useLogin();
+  const dispatch = useDispatch();
+
+  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    mutate(
+      {
+        email,
+        password,
+      },
+      {
+        onSuccess: (user) => {
+          console.log(user);
+
+          dispatch(setUser(user));
+        },
+
+        onError: (error) => {
+          console.log(error);
+        },
+      },
+    );
+  }
 
   function handleShowPasswordToggle() {
     setShowPassword((s) => !s);
@@ -42,6 +71,7 @@ export default function Login() {
         linkTitle="ثبت نام"
         url="/signup"
         buttonTitle="ورود"
+        onSubmit={handleLogin}
       >
         {inputs.map((input) => {
           return input.id === 2 ? (
@@ -51,6 +81,8 @@ export default function Login() {
               mt={input.mt}
               placeholder={input.placeholder}
               icon={input.icon}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             >
               {showPassword ? (
                 <FaRegEye
@@ -71,6 +103,8 @@ export default function Login() {
               mt={input.mt}
               placeholder={input.placeholder}
               icon={input.icon}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           );
         })}

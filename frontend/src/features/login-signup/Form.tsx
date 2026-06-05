@@ -12,9 +12,13 @@ export default function Form({
   linkTitle,
   url,
   buttonTitle,
+  onSubmit,
 }: FormProps) {
   return (
-    <form className="absolute top-30 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg flex flex-col justify-center items-center p-4 w-90">
+    <form
+      onSubmit={onSubmit}
+      className="absolute top-30 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg flex flex-col justify-center items-center p-4 w-90"
+    >
       <BackButton />
       <img src={booksImg} alt="لوگو" className="w-24" />
       <p className="text-white font-bold text-3xl">{title}</p>

@@ -6,6 +6,8 @@ export default function FormInput({
   placeholder,
   icon,
   mt,
+  value,
+  onChange,
 }: FormInputProps) {
   return (
     <div
@@ -17,6 +19,8 @@ export default function FormInput({
         placeholder={placeholder}
         dir="ltr"
         className="border-none outline-none py-1 w-full font-medium"
+        value={value}
+        onChange={onChange}
       />
       {icon}
     </div>
