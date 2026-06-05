@@ -36,14 +36,20 @@ export interface Book {
   price: number;
 }
 
-export interface LoginUser {
-  email: string;
-  password: string;
-}
-
 export interface User {
   id: number;
   username: string;
   email: string;
   avatar?: string;
+}
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
+export interface SignupUser {
+  email: string;
+  username: string;
+  password: string;
 }
