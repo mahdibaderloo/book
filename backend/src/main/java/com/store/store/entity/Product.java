@@ -15,7 +15,9 @@ public class Product {
     private Long id;
 
     private String title;
+
     private String author;
+
     private String publisher;
 
     @Column(length = 2000)

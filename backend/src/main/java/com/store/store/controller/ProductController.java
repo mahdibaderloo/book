@@ -2,33 +2,30 @@ package com.store.store.controller;
 
 import com.store.store.entity.Product;
 import com.store.store.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/products")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
 
-    @Autowired
-    private ProductRepository repository;
+    private final ProductRepository repository;
+
+    public ProductController(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping
-    public List<Product> getAll() {
+    public List<Product> getAllProducts() {
         return repository.findAll();
     }
 
-    @PostMapping
-    public Product add(@RequestBody Product product) {
-        return repository.save(product);
-    }
-
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
+    public Product getProduct(@PathVariable Long id) {
+
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 }
-
