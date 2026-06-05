@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import { useBook } from "../hooks/useBook";
 import Loading from "../components/Loading";
+import BackButton from "../components/BackButton";
 
 export default function Product() {
   const { id } = useParams();
@@ -21,6 +22,7 @@ export default function Product() {
         />
       </section>
       <section className="flex-1 p-4">
+        <BackButton />
         <div className="flex flex-col gap-4 pb-8 border-b-2 border-gray-300">
           <h3 className="font-semibold">{book.title}</h3>
           <p className="text-sm">{book.publisher}</p>
