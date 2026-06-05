@@ -33,6 +33,11 @@ export interface Book {
   price: number;
 }
 
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
 export interface User {
   id: number;
   username: string;
