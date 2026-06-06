@@ -10,7 +10,7 @@ export default function ProductItem({ book }: { book: Book }) {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  console.log(cartItems);
+  const isItemInCart = cartItems.some((item) => item.id === book.id);
 
   function handleClickOnImage() {
     navigate(`/book/${book.id}`);
@@ -54,10 +54,10 @@ export default function ProductItem({ book }: { book: Book }) {
         {book.price.toLocaleString()}
       </span>
       <button
-        onClick={handleAddToCart}
-        className="bg-orange-300 hover:bg-orange-400 transition-all duration-400 shadow rounded-[0.3rem] text-[0.7rem] font-medium py-1 cursor-pointer mt-2"
+        onClick={isItemInCart ? handleRemoveFromCart : handleAddToCart}
+        className={`${isItemInCart ? "bg-red-400 hover:bg-red-600" : "bg-orange-300 hover:bg-orange-400"} transition-all duration-400 shadow rounded-[0.3rem] text-[0.7rem] font-medium py-1 cursor-pointer mt-2`}
       >
-        افزودن به سبد خرید
+        {isItemInCart ? "حذف از سبد خرید" : "افزودن به سبد خرید"}
       </button>
     </li>
   );
