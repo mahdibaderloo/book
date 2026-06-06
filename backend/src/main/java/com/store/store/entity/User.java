@@ -22,4 +22,7 @@ public class User {
     private String password;
 
     private String avatar;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
 }

@@ -1,10 +1,9 @@
 package com.store.store.controller;
 
 import com.store.store.entity.Cart;
-import com.store.store.entity.CartItem;
-import com.store.store.entity.Product;
-import com.store.store.repository.CartRepository;
-import com.store.store.repository.ProductRepository;
+import com.store.store.entity.User;
+import com.store.store.repository.UserRepository;
+import com.store.store.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,39 +13,15 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class CartController {
 
-    private final CartRepository cartRepository;
-    private final ProductRepository productRepository;
+    private final CartService cartService;
+    private final UserRepository userRepository;
 
     @GetMapping("/{userId}")
-    public Cart getCart(
-            @PathVariable Long userId
-    ) {
-        return cartRepository.findByUserId(userId)
-                .orElseThrow();
-    }
+    public Cart getCart(@PathVariable Long userId) {
 
-    @PostMapping("/{userId}/add/{productId}")
-    public Cart addProductToCart(
-            @PathVariable Long userId,
-            @PathVariable Long productId
-    ) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Cart cart = cartRepository
-                .findByUserId(userId)
-                .orElseThrow();
-
-        Product product = productRepository
-                .findById(productId)
-                .orElseThrow();
-
-        CartItem item = new CartItem();
-
-        item.setCart(cart);
-        item.setProduct(product);
-        item.setQuantity(1);
-
-        cart.getItems().add(item);
-
-        return cartRepository.save(cart);
+        return cartService.getOrCreateCart(user);
     }
 }
