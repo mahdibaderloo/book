@@ -1,30 +1,35 @@
 import { FaTrashCan } from "react-icons/fa6";
 import { TiMinus, TiPlus } from "react-icons/ti";
+import type { Book } from "../../types/types";
 
-export default function CartItem() {
+interface Item extends Book {
+  quantity: number;
+}
+
+export default function CartItem({ item }: { item: Item }) {
   return (
     <li className="w-[80%] mx-auto flex justify-between items-center pt-2 pb-4">
       <div className="flex gap-2">
         <img
-          src=""
+          src={item.imageUrl}
           alt="محصول"
           className="w-24 h-24 bg-amber-200 rounded-xl shadow"
         />
         <div className="flex flex-col justify-between py-4">
-          <p className="font-medium text-sm">کتاب</p>
-          <span className="text-[0.9rem]">160,000</span>
+          <p className="font-medium text-sm">{item.title}</p>
+          <span className="text-[0.9rem]">{item.price.toLocaleString()}</span>
         </div>
       </div>
       <div className="flex gap-2">
         <button className="w-6 h-6 bg-orange-400 hover:bg-orange-500 transition-all duration-300 shadow text-md rounded-lg flex justify-center items-center cursor-pointer">
           <TiPlus />
         </button>
-        <span className="font-semibold">1</span>
+        <span className="font-semibold">{item.quantity}</span>
         <button className="w-6 h-6 bg-orange-300 hover:bg-orange-500 transition-all duration-300 shadow text-md rounded-lg flex justify-center items-center cursor-pointer">
           <TiMinus />
         </button>
       </div>
-      <span className="font-medium">160,000</span>
+      <span className="font-medium">{item.quantity * item.price}</span>
       <FaTrashCan className="text-orange-400 cursor-pointer" />
     </li>
   );
