@@ -1,21 +1,22 @@
-// import { BASE_URL } from "../config/api";
+import { BASE_URL } from "../config/api";
+import type { Book } from "../types/types";
 
 // export async function getCart(userId: number) {
 //   const response = await fetch(`${BASE_URL}/cart`);
 // }
 
-// const getCart = async (userId: number) => {
-//   const response = await axios.get(`${API}/${userId}`);
+export async function addToCartApi(book: Book, token: string) {
+  const response = await fetch(`${BASE_URL}/cart`, {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(book),
+  });
 
-//   return response.data;
-// };
+  if (!response.ok) {
+    throw new Error("Failed to fetch Books");
+  }
 
-// export const addToCart = async (userId: number, productId: number) => {
-//   const response = await axios.post(`${API}/${userId}/${productId}`);
-
-//   return response.data;
-// };
-
-// export const removeFromCart = async (cartItemId: number) => {
-//   await axios.delete(`${API}/${cartItemId}`);
-// };
+  return response.json();
+}

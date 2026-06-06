@@ -1,11 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import type { Book } from "../../types/types";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/slices/cartSlice";
 
 export default function ProductItem({ book }: { book: Book }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleClickOnImage() {
     navigate(`/book/${book.id}`);
+  }
+
+  function handleAddToCart() {
+    dispatch(addToCart(book));
   }
 
   return (
@@ -21,7 +28,10 @@ export default function ProductItem({ book }: { book: Book }) {
       <span className="text-[0.8rem] font-medium mt-2">
         {book.price.toLocaleString()}
       </span>
-      <button className="bg-orange-300 hover:bg-orange-400 transition-all duration-400 shadow rounded-[0.3rem] text-[0.7rem] font-medium py-1 cursor-pointer mt-2">
+      <button
+        onClick={handleAddToCart}
+        className="bg-orange-300 hover:bg-orange-400 transition-all duration-400 shadow rounded-[0.3rem] text-[0.7rem] font-medium py-1 cursor-pointer mt-2"
+      >
         افزودن به سبد خرید
       </button>
     </li>
