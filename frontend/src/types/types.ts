@@ -1,3 +1,4 @@
+import type React from "react";
 import type { FormEvent, ReactNode } from "react";
 
 export interface FormProps {
@@ -10,20 +11,11 @@ export interface FormProps {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-export interface FormInputProps {
-  type: string;
-  children?: ReactNode;
-  placeholder: string;
-  icon: ReactNode;
-  mt: number;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 export interface ButtonProps {
   title: string;
   width?: string;
   mt?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface Book {

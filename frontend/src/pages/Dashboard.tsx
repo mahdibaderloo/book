@@ -2,12 +2,21 @@ import Button from "../components/Button";
 import BackButton from "../components/BackButton";
 import backgroundImg from "../assets/background.png";
 import type { RootState } from "../store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import userIcon from "../assets/avatar.webp";
+import { logout } from "../store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    dispatch(logout());
+    navigate("/");
+  }
 
   return (
     <div
@@ -26,7 +35,7 @@ export default function Dashboard() {
           {user?.username}
         </h3>
         <p className="text-orange-50/70 text-lg mt-2">{user?.email}</p>
-        <Button title="خروج از حساب" width="60" mt="8" />
+        <Button title="خروج از حساب" width="60" mt="8" onClick={handleLogout} />
       </div>
     </div>
   );
