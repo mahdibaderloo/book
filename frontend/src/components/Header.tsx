@@ -8,8 +8,7 @@ import type { RootState } from "../store/store";
 
 export default function Header() {
   const user = useSelector((state: RootState) => state.user.user);
-
-  const isLogin = Boolean(user);
+  const isLogin = useSelector((state: RootState) => state.user.isLogin);
 
   return (
     <header className="flex items-center justify-center w-full p-4 font-noto bg-gray-50 fixed shadow z-50">

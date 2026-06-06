@@ -3,10 +3,14 @@ import type { User } from "../../types/types";
 
 interface UserState {
   user: User | null;
+  isLogin: boolean;
 }
 
+const user = JSON.parse(localStorage.getItem("user") || "null");
+
 const initialState: UserState = {
-  user: JSON.parse(localStorage.getItem("user") || "null"),
+  user,
+  isLogin: !!user,
 };
 
 const userSlice = createSlice({
@@ -18,6 +22,7 @@ const userSlice = createSlice({
 
       localStorage.setItem("user", JSON.stringify(action.payload.user));
       localStorage.setItem("token", action.payload.token);
+      state.isLogin = true;
     },
 
     logout(state) {
@@ -25,6 +30,7 @@ const userSlice = createSlice({
 
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+      state.isLogin = false;
     },
   },
 });
