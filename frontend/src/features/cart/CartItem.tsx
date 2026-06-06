@@ -1,12 +1,31 @@
 import { FaTrashCan } from "react-icons/fa6";
 import { TiMinus, TiPlus } from "react-icons/ti";
 import type { Book } from "../../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
+import { removeFromCart } from "../../store/slices/cartSlice";
+import { removeFromCartApi } from "../../services/cart";
 
 interface Item extends Book {
   quantity: number;
 }
 
 export default function CartItem({ item }: { item: Item }) {
+  const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
+
+  async function handleRemoveFromCart() {
+    const token = localStorage.getItem("token");
+
+    if (user && token) {
+      dispatch(removeFromCart(item.id));
+
+      await removeFromCartApi(item.id, token);
+    } else {
+      alert("ابتدا وارد شوید");
+    }
+  }
+
   return (
     <li className="w-[80%] mx-auto flex justify-between items-center pt-2 pb-4">
       <div className="flex gap-4">
@@ -34,7 +53,10 @@ export default function CartItem({ item }: { item: Item }) {
       <span className="font-medium">
         {(item.quantity * item.price).toLocaleString()}
       </span>
-      <FaTrashCan className="text-orange-400 cursor-pointer" />
+      <FaTrashCan
+        className="text-orange-400 cursor-pointer"
+        onClick={handleRemoveFromCart}
+      />
     </li>
   );
 }
