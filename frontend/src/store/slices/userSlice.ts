@@ -16,13 +16,15 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
 
-      localStorage.setItem("user", JSON.stringify(action.payload));
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      localStorage.setItem("token", action.payload.token);
     },
 
     logout(state) {
       state.user = null;
 
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
     },
   },
 });
