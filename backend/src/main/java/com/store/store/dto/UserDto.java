@@ -1,12 +1,15 @@
 package com.store.store.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterRequest {
+@AllArgsConstructor
+public class UserDto {
+    private Long id;
     private String username;
     private String email;
-    private String password;
+    private String avatar;
 }
