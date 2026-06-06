@@ -8,34 +8,34 @@ import { useSignup } from "../hooks/useSignup";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import type { SignupUser } from "../types/types";
 
 export default function Signup() {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const { mutate } = useSignup();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleSignup(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupUser>();
 
-    mutate(
-      { email, username, password },
-      {
-        onSuccess: (user) => {
-          dispatch(setUser(user));
-          alert("ثبت نام با موفقیت انجام شد");
-          navigate("/");
-        },
-
-        onError: () => {
-          alert("خطا هنگام ثبت نام!");
-        },
+  function onSubmit(data: SignupUser) {
+    mutate(data, {
+      onSuccess: (user) => {
+        dispatch(setUser(user));
+        reset();
+        navigate("/");
       },
-    );
+      onError: (error) => {
+        alert(error.message);
+      },
+    });
   }
 
   function handleShowPasswordToggle() {
@@ -54,7 +54,7 @@ export default function Signup() {
         linkTitle="ورود"
         url="/login"
         buttonTitle="ثبت نام"
-        onSubmit={handleSignup}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex gap-1 bg-gray-300 rounded-xl p-2 items-center mt-8 w-[90%]">
           <input
@@ -62,11 +62,16 @@ export default function Signup() {
             placeholder="Username"
             dir="ltr"
             className="border-none outline-none py-1 w-full font-medium"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            {...register("username", {
+              required: "نام کاربری الزامی است",
+            })}
           />
           <FaRegUser className="text-xl text-gray-700" />
         </div>
+
+        {errors.username && (
+          <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>
+        )}
 
         <div className="flex gap-1 bg-gray-300 rounded-xl p-2 items-center mt-4 w-[90%]">
           <input
@@ -74,11 +79,20 @@ export default function Signup() {
             placeholder="Email"
             dir="ltr"
             className="border-none outline-none py-1 w-full font-medium"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register("email", {
+              required: "ایمیل الزامی است",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "فرمت ایمیل صحیح نیست",
+              },
+            })}
           />
           <HiOutlineMail className="text-2xl text-gray-700" />
         </div>
+
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+        )}
 
         <div className="flex gap-1 bg-gray-300 rounded-xl p-2 items-center mt-4 w-[90%]">
           {showPassword ? (
@@ -97,11 +111,20 @@ export default function Signup() {
             placeholder="Password"
             dir="ltr"
             className="border-none outline-none py-1 w-full font-medium"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register("password", {
+              required: "رمز عبور الزامی است",
+              minLength: {
+                value: 8,
+                message: "حداقل 8 کاراکتر",
+              },
+            })}
           />
           <TbLockPassword className="text-2xl text-gray-700" />
         </div>
+
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+        )}
       </Form>
     </div>
   );
