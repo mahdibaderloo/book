@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 
 import logo from "../assets/logo.png";
 import HeaderForm from "./HeaderForm";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 export default function Header() {
+  const user = useSelector((state: RootState) => state.user.user);
+  console.log(user);
+
   return (
     <header className="flex items-center justify-center w-full p-4 font-noto bg-gray-50 fixed shadow z-50">
       <Link to="/" className="flex items-center" title="خانه">
@@ -23,8 +28,8 @@ export default function Header() {
       >
         <BsPerson className="text-2xl" />
       </Link>
-      <Link to="/dashboard">
-        <span className="mr-2 text-sm">نام کاربری</span>
+      <Link to={user ? "/dashboard" : "/login"}>
+        <span className="mr-2 text-sm">{user ? user.username : "ورود"}</span>
       </Link>
     </header>
   );
