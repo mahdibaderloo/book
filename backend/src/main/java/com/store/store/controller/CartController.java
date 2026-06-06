@@ -1,12 +1,13 @@
 package com.store.store.controller;
 
+import com.store.store.dto.AddToCartRequest;
 import com.store.store.entity.Cart;
 import com.store.store.entity.User;
 import com.store.store.repository.UserRepository;
 import com.store.store.service.CartService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import com.store.store.dto.AddToCartRequest;
 
 @RestController
 @RequestMapping("/cart")
@@ -27,10 +28,14 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public Cart addToCart(@RequestBody AddToCartRequest request) {
+    public Cart addToCart(@RequestBody AddToCartRequest request,
+                          HttpServletRequest httpRequest) {
 
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = (User) httpRequest.getAttribute("user");
+
+        if (user == null) {
+            throw new RuntimeException("Unauthorized");
+        }
 
         return cartService.addToCart(request, user);
     }
