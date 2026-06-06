@@ -1,11 +1,7 @@
 import { BASE_URL } from "../config/api";
 import type { Book } from "../types/types";
 
-// export async function getCart(userId: number) {
-//   const response = await fetch(`${BASE_URL}/cart`);
-// }
-
-export async function addToCartApi(book: Book, token: string) {
+export async function addToCartApi(book: Book, token: string | null) {
   const response = await fetch(`${BASE_URL}/cart`, {
     headers: {
       "Content-type": "application/json",

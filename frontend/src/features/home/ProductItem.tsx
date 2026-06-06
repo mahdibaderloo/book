@@ -1,18 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import type { Book } from "../../types/types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/slices/cartSlice";
+import { addToCartApi } from "../../services/cart";
+import type { RootState } from "../../store/store";
 
 export default function ProductItem({ book }: { book: Book }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user.user);
 
   function handleClickOnImage() {
     navigate(`/book/${book.id}`);
   }
 
-  function handleAddToCart() {
-    dispatch(addToCart(book));
+  async function handleAddToCart() {
+    const token = localStorage.getItem("token");
+
+    if (user && token) {
+      dispatch(addToCart(book));
+
+      await addToCartApi(book, token);
+    } else {
+      alert("ابتدا وارد شوید");
+    }
   }
 
   return (
