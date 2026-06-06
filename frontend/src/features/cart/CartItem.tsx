@@ -15,7 +15,7 @@ export default function CartItem({ item }: { item: Item }) {
           alt="محصول"
           className="w-24 h-24 bg-amber-200 rounded-xl shadow"
         />
-        <div className="flex flex-col justify-between py-4">
+        <div className="flex flex-col justify-between py-4 w-50">
           <p className="font-medium text-md">{item.title}</p>
           <span className="text-[0.9rem] font-medium">
             {item.price.toLocaleString()}
