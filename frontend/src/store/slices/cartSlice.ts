@@ -10,11 +10,11 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  items: [],
+  items: JSON.parse(localStorage.getItem("books-cart") || "[]"),
 };
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: "books-cart",
   initialState,
   reducers: {
     addToCart: (state, action) => {
@@ -28,16 +28,22 @@ const cartSlice = createSlice({
           quantity: 1,
         });
       }
+
+      localStorage.setItem("books-cart", JSON.stringify(state.items));
     },
 
     removeFromCart: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
+
+      localStorage.setItem("books-cart", JSON.stringify(state.items));
     },
 
     increaseQuantity: (state, action) => {
       const item = state.items.find((i) => i.id === action.payload);
 
       if (item) item.quantity++;
+
+      localStorage.setItem("books-cart", JSON.stringify(state.items));
     },
 
     decreaseQuantity: (state, action) => {
@@ -46,20 +52,13 @@ const cartSlice = createSlice({
       if (item && item.quantity > 1) {
         item.quantity--;
       }
-    },
 
-    clearCart: (state) => {
-      state.items = [];
+      localStorage.setItem("books-cart", JSON.stringify(state.items));
     },
   },
 });
 
-export const {
-  addToCart,
-  removeFromCart,
-  increaseQuantity,
-  decreaseQuantity,
-  clearCart,
-} = cartSlice.actions;
+export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

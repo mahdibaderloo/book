@@ -18,7 +18,7 @@ export async function addToCartApi(book: Book, token: string | null) {
   return response.json();
 }
 
-export async function removeFromCartApi(bookId: string, token: string | null) {
+export async function removeFromCartApi(bookId: number, token: string | null) {
   const response = await fetch(`${BASE_URL}/cart/${bookId}`, {
     method: "DELETE",
     headers: {
