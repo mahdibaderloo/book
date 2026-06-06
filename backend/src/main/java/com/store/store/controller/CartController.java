@@ -6,6 +6,7 @@ import com.store.store.repository.UserRepository;
 import com.store.store.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import com.store.store.dto.AddToCartRequest;
 
 @RestController
 @RequestMapping("/cart")
@@ -23,5 +24,14 @@ public class CartController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return cartService.getOrCreateCart(user);
+    }
+
+    @PostMapping("/add")
+    public Cart addToCart(@RequestBody AddToCartRequest request) {
+
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return cartService.addToCart(request, user);
     }
 }
