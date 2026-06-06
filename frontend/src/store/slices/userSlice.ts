@@ -6,7 +6,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("user") || "null"),
 };
 
 const userSlice = createSlice({
@@ -15,10 +15,14 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.user = action.payload;
+
+      localStorage.setItem("user", JSON.stringify(action.payload));
     },
 
     logout(state) {
       state.user = null;
+
+      localStorage.removeItem("user");
     },
   },
 });

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Form from "../features/login-signup/Form";
-import FormInput from "../features/login-signup/FormInput";
 import { HiOutlineMail } from "react-icons/hi";
 import { TbLockPassword } from "react-icons/tb";
 import { FaRegEye, FaRegEyeSlash, FaRegUser } from "react-icons/fa";
@@ -8,30 +7,7 @@ import backgroundImg from "../assets/background.png";
 import { useSignup } from "../hooks/useSignup";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/userSlice";
-
-const inputs = [
-  {
-    id: 1,
-    type: "text",
-    placeholder: "Email",
-    icon: <HiOutlineMail className="text-2xl text-gray-700" />,
-    mt: 8,
-  },
-  {
-    id: 2,
-    type: "text",
-    placeholder: "Username",
-    icon: <FaRegUser className="text-xl text-gray-700" />,
-    mt: 4,
-  },
-  {
-    id: 3,
-    type: "password",
-    placeholder: "Password",
-    icon: <TbLockPassword className="text-2xl text-gray-700" />,
-    mt: 4,
-  },
-];
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -41,25 +17,22 @@ export default function Signup() {
 
   const { mutate } = useSignup();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleSignup(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     mutate(
-      {
-        email,
-        username,
-        password,
-      },
+      { email, username, password },
       {
         onSuccess: (user) => {
-          console.log(user);
-
           dispatch(setUser(user));
+          alert("ثبت نام با موفقیت انجام شد");
+          navigate("/");
         },
 
-        onError: (error) => {
-          console.log(error);
+        onError: () => {
+          alert("خطا هنگام ثبت نام!");
         },
       },
     );
@@ -83,45 +56,52 @@ export default function Signup() {
         buttonTitle="ثبت نام"
         onSubmit={handleSignup}
       >
-        {inputs.map((input) => {
-          return input.id === 3 ? (
-            <FormInput
-              key={input.id}
-              type={showPassword ? "text" : "password"}
-              mt={input.mt}
-              placeholder={input.placeholder}
-              icon={input.icon}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            >
-              {showPassword ? (
-                <FaRegEye
-                  className="text-xl text-gray-700 cursor-pointer"
-                  onClick={handleShowPasswordToggle}
-                />
-              ) : (
-                <FaRegEyeSlash
-                  className="text-xl text-gray-700 cursor-pointer"
-                  onClick={handleShowPasswordToggle}
-                />
-              )}
-            </FormInput>
-          ) : (
-            <FormInput
-              key={input.id}
-              type={input.type}
-              mt={input.mt}
-              placeholder={input.placeholder}
-              icon={input.icon}
-              value={input.id === 1 ? email : username}
-              onChange={
-                input.id === 1
-                  ? (e) => setEmail(e.target.value)
-                  : (e) => setUsername(e.target.value)
-              }
+        <div className="flex gap-1 bg-gray-300 rounded-xl p-2 items-center mt-8 w-[90%]">
+          <input
+            type="text"
+            placeholder="Username"
+            dir="ltr"
+            className="border-none outline-none py-1 w-full font-medium"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <FaRegUser className="text-xl text-gray-700" />
+        </div>
+
+        <div className="flex gap-1 bg-gray-300 rounded-xl p-2 items-center mt-4 w-[90%]">
+          <input
+            type="text"
+            placeholder="Email"
+            dir="ltr"
+            className="border-none outline-none py-1 w-full font-medium"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <HiOutlineMail className="text-2xl text-gray-700" />
+        </div>
+
+        <div className="flex gap-1 bg-gray-300 rounded-xl p-2 items-center mt-4 w-[90%]">
+          {showPassword ? (
+            <FaRegEye
+              className="text-xl text-gray-700 cursor-pointer"
+              onClick={handleShowPasswordToggle}
             />
-          );
-        })}
+          ) : (
+            <FaRegEyeSlash
+              className="text-xl text-gray-700 cursor-pointer"
+              onClick={handleShowPasswordToggle}
+            />
+          )}
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            dir="ltr"
+            className="border-none outline-none py-1 w-full font-medium"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <TbLockPassword className="text-2xl text-gray-700" />
+        </div>
       </Form>
     </div>
   );
