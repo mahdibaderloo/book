@@ -19,3 +19,13 @@ export async function getBook(id: number) {
 
   return response.json();
 }
+
+export async function getBooksWithQuery(query: string) {
+  const response = await fetch(`${BASE_URL}/products/search?title=${query}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch Books");
+  }
+
+  return response.json();
+}
