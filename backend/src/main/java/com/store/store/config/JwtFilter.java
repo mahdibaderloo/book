@@ -24,56 +24,36 @@ public class JwtFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain
-    ) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
 
-        if (
-                authHeader == null ||
-                        !authHeader.startsWith("Bearer ")
-        ) {
-
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
+            String token = authHeader.substring(7).trim();
+            String email = jwtService.extractEmail(token);
 
-            String token = authHeader.substring(7);
-
-            String email =
-                    jwtService.extractEmail(token);
-
-            User user =
-                    userRepository.findByEmail(email)
-                            .orElse(null);
+            User user = userRepository.findByEmail(email).orElse(null);
 
             if (user != null) {
-
                 request.setAttribute("user", user);
 
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(
-                                user,
-                                null,
-                                List.of(new SimpleGrantedAuthority("USER"))
-                        );
+                        new UsernamePasswordAuthenticationToken(user, null,
+                                List.of(new SimpleGrantedAuthority("USER")));
 
-                SecurityContextHolder
-                        .getContext()
-                        .setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
 
         } catch (Exception e) {
-
-            response.setStatus(
-                    HttpServletResponse.SC_UNAUTHORIZED
-            );
-
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid or expired token");
             return;
         }
 

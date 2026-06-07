@@ -12,25 +12,23 @@ export default function ProductItem({ book }: { book: Book }) {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const isItemInCart = cartItems.some((item) => item.id === book.id);
 
+  const token = localStorage.getItem("token");
+
   function handleClickOnImage() {
     navigate(`/book/${book.id}`);
   }
 
   async function handleAddToCart() {
-    const token = localStorage.getItem("token");
-
     if (user && token) {
       dispatch(addToCart(book));
 
-      await addToCartApi(book, token);
+      await addToCartApi(book.id, token);
     } else {
       alert("ابتدا وارد شوید");
     }
   }
 
   async function handleRemoveFromCart() {
-    const token = localStorage.getItem("token");
-
     if (user && token) {
       dispatch(removeFromCart(book.id));
 

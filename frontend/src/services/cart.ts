@@ -1,14 +1,13 @@
 import { BASE_URL } from "../config/api";
-import type { Book } from "../types/types";
 
-export async function addToCartApi(book: Book, token: string | null) {
-  const response = await fetch(`${BASE_URL}/cart`, {
+export async function addToCartApi(bookId: number, token: string | null) {
+  const response = await fetch(`${BASE_URL}/carts/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(book),
+    body: JSON.stringify({ productId: bookId }),
   });
 
   if (!response.ok) {
@@ -19,7 +18,7 @@ export async function addToCartApi(book: Book, token: string | null) {
 }
 
 export async function removeFromCartApi(bookId: number, token: string | null) {
-  const response = await fetch(`${BASE_URL}/cart/${bookId}`, {
+  const response = await fetch(`${BASE_URL}/carts/${bookId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -37,7 +36,7 @@ export async function increaseQuantityApi(
   bookId: number,
   token: string | null,
 ) {
-  const response = await fetch(`${BASE_URL}/cart/${bookId}/increase`, {
+  const response = await fetch(`${BASE_URL}/carts/${bookId}/increase`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -55,7 +54,7 @@ export async function decreaseQuantityApi(
   bookId: number,
   token: string | null,
 ) {
-  const response = await fetch(`${BASE_URL}/cart/${bookId}/decrease`, {
+  const response = await fetch(`${BASE_URL}/carts/${bookId}/decrease`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,
