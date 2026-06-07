@@ -37,8 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**")
                         .permitAll()
 
-                        .requestMatchers("/products/**")
-                        .permitAll()
+                        .requestMatchers("/products/**").permitAll()
 
                         .requestMatchers(HttpMethod.OPTIONS, "/**")
                         .permitAll()

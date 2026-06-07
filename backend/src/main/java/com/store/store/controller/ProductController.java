@@ -13,19 +13,21 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
 
-    private final ProductRepository productRepository;
+    private final ProductRepository repository;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<Product> getAll() {
+        return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(
-            @PathVariable Long id
-    ) {
-        return productRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Product not found"));
+    public Product getById(@PathVariable Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+
+    @GetMapping("/search")
+    public List<Product> search(@RequestParam String title) {
+        return repository.findByTitleContainingIgnoreCase(title);
     }
 }
