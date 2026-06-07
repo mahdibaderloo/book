@@ -51,6 +51,8 @@ const cartSlice = createSlice({
 
       if (item && item.quantity > 1) {
         item.quantity--;
+      } else {
+        state.items = state.items.filter((i) => i.id !== action.payload);
       }
 
       localStorage.setItem("books-cart", JSON.stringify(state.items));

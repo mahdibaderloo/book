@@ -3,5 +3,6 @@ package com.store.store.repository;
 import com.store.store.entity.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CartItemRepository extends JpaRepository<CartItem, Long> {
+public interface CartItemRepository
+        extends JpaRepository<CartItem, Long> {
 }

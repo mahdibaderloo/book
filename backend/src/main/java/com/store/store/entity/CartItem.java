@@ -16,6 +16,8 @@ public class CartItem {
 
     private Integer quantity = 1;
 
+    private Long productId;
+
     private String productTitle;
 
     private Double price;

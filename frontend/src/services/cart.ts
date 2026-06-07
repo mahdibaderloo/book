@@ -34,7 +34,7 @@ export async function removeFromCartApi(bookId: number, token: string | null) {
 }
 
 export async function increaseQuantityApi(
-  bookId: string,
+  bookId: number,
   token: string | null,
 ) {
   const response = await fetch(`${BASE_URL}/cart/${bookId}/increase`, {
@@ -52,7 +52,7 @@ export async function increaseQuantityApi(
 }
 
 export async function decreaseQuantityApi(
-  bookId: string,
+  bookId: number,
   token: string | null,
 ) {
   const response = await fetch(`${BASE_URL}/cart/${bookId}/decrease`, {

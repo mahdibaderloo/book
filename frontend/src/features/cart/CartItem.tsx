@@ -1,28 +1,47 @@
 import { FaTrashCan } from "react-icons/fa6";
 import { TiMinus, TiPlus } from "react-icons/ti";
 import type { Book } from "../../types/types";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
-import { removeFromCart } from "../../store/slices/cartSlice";
-import { removeFromCartApi } from "../../services/cart";
+import { useDispatch } from "react-redux";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "../../store/slices/cartSlice";
+import {
+  decreaseQuantityApi,
+  increaseQuantityApi,
+  removeFromCartApi,
+} from "../../services/cart";
 
 interface Item extends Book {
   quantity: number;
 }
 
 export default function CartItem({ item }: { item: Item }) {
-  const user = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
 
   async function handleRemoveFromCart() {
     const token = localStorage.getItem("token");
+    dispatch(removeFromCart(item.id));
+    await removeFromCartApi(item.id, token);
+  }
 
-    if (user && token) {
+  async function handleIncrease() {
+    const token = localStorage.getItem("token");
+    dispatch(increaseQuantity(item.id));
+    await increaseQuantityApi(item.id, token);
+  }
+
+  async function handleDecrease() {
+    const token = localStorage.getItem("token");
+
+    if (item.quantity === 1) {
+      console.log(item.quantity);
       dispatch(removeFromCart(item.id));
-
       await removeFromCartApi(item.id, token);
     } else {
-      alert("ابتدا وارد شوید");
+      dispatch(decreaseQuantity(item.id));
+      await decreaseQuantityApi(item.id, token);
     }
   }
 
@@ -42,11 +61,17 @@ export default function CartItem({ item }: { item: Item }) {
         </div>
       </div>
       <div className="flex gap-2">
-        <button className="w-6 h-6 bg-orange-400 hover:bg-orange-500 transition-all duration-300 shadow text-md rounded-lg flex justify-center items-center cursor-pointer">
+        <button
+          onClick={handleIncrease}
+          className="w-6 h-6 bg-orange-400 hover:bg-orange-500 transition-all duration-300 shadow text-md rounded-lg flex justify-center items-center cursor-pointer"
+        >
           <TiPlus />
         </button>
         <span className="font-semibold">{item.quantity}</span>
-        <button className="w-6 h-6 bg-orange-300 hover:bg-orange-500 transition-all duration-300 shadow text-md rounded-lg flex justify-center items-center cursor-pointer">
+        <button
+          onClick={handleDecrease}
+          className="w-6 h-6 bg-orange-300 hover:bg-orange-500 transition-all duration-300 shadow text-md rounded-lg flex justify-center items-center cursor-pointer"
+        >
           <TiMinus />
         </button>
       </div>
