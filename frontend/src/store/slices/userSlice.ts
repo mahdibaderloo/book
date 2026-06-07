@@ -1,40 +1,47 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 import type { User } from "../../types/types";
+
+interface AuthResponse {
+  user: User;
+  token: string;
+}
 
 interface UserState {
   user: User | null;
+  token: string | null;
   isLogin: boolean;
 }
 
-const user = JSON.parse(localStorage.getItem("user") || "null");
-
 const initialState: UserState = {
-  user,
-  isLogin: !!user,
+  user: JSON.parse(localStorage.getItem("user") || "null"),
+  token: localStorage.getItem("token"),
+  isLogin: !!localStorage.getItem("token"),
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, action) {
-      state.user = action.payload;
+    setUser(state, action: PayloadAction<AuthResponse>) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLogin = true;
 
       localStorage.setItem("user", JSON.stringify(action.payload.user));
       localStorage.setItem("token", action.payload.token);
-      state.isLogin = true;
     },
 
     logout(state) {
       state.user = null;
+      state.token = null;
+      state.isLogin = false;
 
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      state.isLogin = false;
     },
   },
 });
 
 export const { setUser, logout } = userSlice.actions;
-
 export default userSlice.reducer;

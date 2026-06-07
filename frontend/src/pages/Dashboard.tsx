@@ -27,7 +27,7 @@ export default function Dashboard() {
       <div className="absolute top-30 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg p-4 w-3xl flex flex-col justify-center items-center">
         <BackButton />
         <img
-          src={user?.avatar ? user.avatar : userIcon}
+          src={user?.avatar ? user?.avatar : userIcon}
           alt="پروفایل"
           className="w-40 h-40 rounded-full bg-orange-300 mt-8"
         />
