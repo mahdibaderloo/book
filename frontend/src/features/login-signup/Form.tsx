@@ -17,7 +17,7 @@ export default function Form({
   return (
     <form
       onSubmit={onSubmit}
-      className="absolute top-30 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg flex flex-col justify-center items-center p-4 w-90"
+      className="absolute top-10 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg flex flex-col justify-center items-center p-4 w-90"
     >
       <BackButton />
       <img src={booksImg} alt="لوگو" className="w-24" />

@@ -48,10 +48,10 @@ export default function Login() {
 
   return (
     <div
-      className="h-screen relative overflow-hidden"
+      className="h-screen fixed top-0 left-0 w-full z-0 overflow-y-scroll"
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      <div className="bg-black h-screen opacity-80" />
+      <div className="bg-black h-screen opacity-80 fixed top-0 left-0 w-full z-0" />
 
       <Form
         title="خوش برگشتی"
