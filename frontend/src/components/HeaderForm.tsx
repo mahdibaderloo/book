@@ -15,6 +15,10 @@ export default function HeaderForm() {
     } else {
       setSearchParams({}, { replace: true });
     }
+
+    document.getElementById("products")?.scrollIntoView({
+      behavior: "smooth",
+    });
   }
 
   useEffect(() => {
