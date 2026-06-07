@@ -7,7 +7,6 @@ import ProductItem from "./ProductItem";
 export default function Products() {
   const [searchParams] = useSearchParams();
   const { data: books, isLoading } = useBooks(searchParams.get("search") || "");
-  console.log(books);
 
   if (isLoading) {
     return <Loading />;
