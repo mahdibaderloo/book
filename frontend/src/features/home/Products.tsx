@@ -1,10 +1,13 @@
+import { useSearchParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { useBooks } from "../../hooks/useBooks";
 import type { Book } from "../../types/types";
 import ProductItem from "./ProductItem";
 
 export default function Products() {
-  const { data: books, isLoading } = useBooks();
+  const [searchParams] = useSearchParams();
+  const { data: books, isLoading } = useBooks(searchParams.get("search") || "");
+  console.log(books);
 
   if (isLoading) {
     return <Loading />;

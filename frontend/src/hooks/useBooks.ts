@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getBooks } from "../services/books";
+import { getBooksWithQuery } from "../services/books";
 
-export function useBooks() {
+export function useBooks(query: string) {
   return useQuery({
-    queryKey: ["books"],
-    queryFn: getBooks,
+    queryKey: ["books", query],
+    queryFn: () => getBooksWithQuery(query),
+    enabled: true,
   });
 }
