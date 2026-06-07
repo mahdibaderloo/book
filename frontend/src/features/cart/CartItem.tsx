@@ -36,7 +36,6 @@ export default function CartItem({ item }: { item: Item }) {
     const token = localStorage.getItem("token");
 
     if (item.quantity === 1) {
-      console.log(item.quantity);
       dispatch(removeFromCart(item.id));
       await removeFromCartApi(item.id, token);
     } else {
