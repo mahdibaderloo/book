@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import userIcon from "../assets/avatar.webp";
 import { logout } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { clearCart } from "../store/slices/cartSlice";
+import toast from "react-hot-toast";
 
 export default function Dashboard() {
   const user = useSelector((state: RootState) => state.user.user);
@@ -14,7 +16,9 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   function handleLogout() {
+    toast.success("از حساب کابری خارج شدید");
     dispatch(logout());
+    dispatch(clearCart());
     navigate("/");
   }
 

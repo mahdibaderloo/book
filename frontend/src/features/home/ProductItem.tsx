@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../store/slices/cartSlice";
 import { addToCartApi, removeFromCartApi } from "../../services/cart";
 import type { RootState } from "../../store/store";
+import toast from "react-hot-toast";
 
 export default function ProductItem({ book }: { book: Book }) {
   const navigate = useNavigate();
@@ -20,21 +21,23 @@ export default function ProductItem({ book }: { book: Book }) {
 
   async function handleAddToCart() {
     if (user && token) {
+      toast.success(`${book.title} به سبد خرید اضافه شد`);
       dispatch(addToCart(book));
 
       await addToCartApi(book.id, token);
     } else {
-      alert("ابتدا وارد شوید");
+      toast.error("ابتدا وارد شوید");
     }
   }
 
   async function handleRemoveFromCart() {
     if (user && token) {
+      toast.success(`${book.title} از سبد خرید حذف شد`);
       dispatch(removeFromCart(book.id));
 
       await removeFromCartApi(book.id, token);
     } else {
-      alert("ابتدا وارد شوید");
+      toast.error("ابتدا وارد شوید");
     }
   }
 

@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import type { LoginUser } from "../types/types";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,12 +33,13 @@ export default function Login() {
   function onSubmit(data: LoginUser) {
     mutate(data, {
       onSuccess: (user) => {
+        toast.success("با موفقیت وارد شدید");
         dispatch(setUser(user));
         reset();
         navigate("/");
       },
-      onError: (error) => {
-        alert(error.message);
+      onError: () => {
+        toast.error("رمز یا ایمیل اشتباه است");
       },
     });
   }

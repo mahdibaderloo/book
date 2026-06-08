@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Product from "./pages/Product";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,10 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <RouterProvider router={router} />
+      <Toaster
+        position="top-center"
+        toastOptions={{ className: "bg-gray-700" }}
+      />
     </QueryClientProvider>
   );
 }
