@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import { addToCart, removeFromCart } from "../store/slices/cartSlice";
 import { addToCartApi, removeFromCartApi } from "../services/cart";
+import toast from "react-hot-toast";
 
 export default function Product() {
   const { id } = useParams();
@@ -21,6 +22,7 @@ export default function Product() {
 
   async function handleAddToCart() {
     if (user && token) {
+      toast.success(`${book.title} به سبد خرید اضافه شد`);
       dispatch(addToCart(book));
 
       await addToCartApi(book.id, token);
@@ -31,6 +33,7 @@ export default function Product() {
 
   async function handleRemoveFromCart() {
     if (user && token) {
+      toast.success(`${book.title} از سبد خرید حذف شد`);
       dispatch(removeFromCart(book.id));
 
       await removeFromCartApi(book.id, token);
