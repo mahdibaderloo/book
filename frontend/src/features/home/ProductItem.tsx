@@ -1,19 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import type { Book } from "../../types/types";
+import type { Book, CartItemResponse } from "../../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../store/slices/cartSlice";
 import { addToCartApi, removeFromCartApi } from "../../services/cart";
 import type { RootState } from "../../store/store";
 import toast from "react-hot-toast";
+import { useCart } from "../../hooks/useCart";
 
 export default function ProductItem({ book }: { book: Book }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
-  const cartItems = useSelector((state: RootState) => state.cart.items);
-  const isItemInCart = cartItems.some((item) => item.id === book.id);
 
   const token = localStorage.getItem("token");
+  const { data: cart = [] } = useCart(token);
+
+  const items = cart?.items ?? [];
+
+  const isItemInCart = items.some(
+    (item: CartItemResponse) => item.productId === book.id,
+  );
 
   function handleClickOnImage() {
     navigate(`/book/${book.id}`);

@@ -6,7 +6,7 @@ import type { RootState } from "../store/store";
 import { useCart } from "../hooks/useCart";
 import { useEffect } from "react";
 import { setCart } from "../store/slices/cartSlice";
-import type { Cart } from "../types/types";
+import type { CartItemResponse } from "../types/types";
 import Loading from "../components/Loading";
 
 export default function ShoppingCart() {
@@ -18,18 +18,20 @@ export default function ShoppingCart() {
   useEffect(() => {
     if (!cart) return;
 
-    dispatch(
-      setCart(
-        cart.items.map((item: Cart) => ({
-          id: item.productId,
-          title: item.productTitle,
-          price: item.price,
-          imageUrl: item.imageUrl,
-          quantity: item.quantity,
-        })),
-      ),
-    );
-  }, [cart, dispatch]);
+    if (token) {
+      dispatch(
+        setCart(
+          cart.items.map((item: CartItemResponse) => ({
+            id: item.productId,
+            title: item.productTitle,
+            price: item.price,
+            imageUrl: item.imageUrl,
+            quantity: item.quantity,
+          })),
+        ),
+      );
+    }
+  }, [cart, dispatch, token]);
 
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,

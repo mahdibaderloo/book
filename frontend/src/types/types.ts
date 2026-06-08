@@ -28,9 +28,9 @@ export interface Book {
   price: number;
 }
 
-export interface Cart {
-  id: number;
-  title: string;
+export interface CartItemResponse {
+  productId: number;
+  productTitle: string;
   price: number;
   imageUrl: string;
   quantity: number;

@@ -9,16 +9,23 @@ import { logout } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/slices/cartSlice";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Dashboard() {
   const user = useSelector((state: RootState) => state.user.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
+
   function handleLogout() {
     toast.success("از حساب کابری خارج شدید");
-    dispatch(logout());
     dispatch(clearCart());
+    dispatch(logout());
+
+    queryClient.removeQueries({ queryKey: ["cart"] });
+
     navigate("/");
   }
 
