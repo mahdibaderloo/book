@@ -41,7 +41,7 @@ export default function App() {
       <RouterProvider router={router} />
       <Toaster
         position="top-center"
-        toastOptions={{ className: "bg-gray-700" }}
+        toastOptions={{ className: "bg-gray-700 text-[0.65rem] font-medium" }}
       />
     </QueryClientProvider>
   );
