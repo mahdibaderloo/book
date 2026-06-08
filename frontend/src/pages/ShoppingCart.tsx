@@ -1,16 +1,44 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItems from "../features/cart/CartItems";
 import EmptyCart from "../features/cart/EmptyCart";
 import Total from "../features/cart/Total";
 import type { RootState } from "../store/store";
+import { useCart } from "../hooks/useCart";
+import { useEffect } from "react";
+import { setCart } from "../store/slices/cartSlice";
+import type { Cart } from "../types/types";
+import Loading from "../components/Loading";
 
 export default function ShoppingCart() {
+  const token = localStorage.getItem("token");
+  const { data: cart, isLoading } = useCart(token);
+  const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cart.items);
+
+  useEffect(() => {
+    if (!cart) return;
+
+    dispatch(
+      setCart(
+        cart.items.map((item: Cart) => ({
+          id: item.productId,
+          title: item.productTitle,
+          price: item.price,
+          imageUrl: item.imageUrl,
+          quantity: item.quantity,
+        })),
+      ),
+    );
+  }, [cart, dispatch]);
 
   const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-4 flex flex-col min-h-[calc(100vh-529px-120px)]">

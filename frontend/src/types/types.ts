@@ -28,6 +28,14 @@ export interface Book {
   price: number;
 }
 
+export interface Cart {
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+}
+
 export interface User {
   id: number;
   username: string;
