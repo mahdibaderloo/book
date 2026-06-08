@@ -1,19 +1,24 @@
 import { Link } from "react-router-dom";
 
+const links = [
+  { id: 1, path: "/", title: "خانه" },
+  { id: 2, path: "/shopping-cart", title: "سبد خرید" },
+  { id: 3, path: "/dashboard", title: "داشبورد" },
+];
+
 export default function FooterLinksSection() {
   return (
     <section className="border-b-2 border-gray-900/10 py-8 flex justify-center items-center gap-16">
       <ul className="flex flex-col gap-2">
         <p className="text-sm font-medium mb-4">دسترسی سریع</p>
-        <li className="w-fit text-[0.75rem] text-gray-600 hover:text-orange-400 transition-all duration-400 font-medium">
-          <Link to="/">خانه</Link>
-        </li>
-        <li className="w-fit text-[0.75rem] text-gray-600 hover:text-orange-400 transition-all duration-400 font-medium">
-          <Link to="/shopping-cart">سبد خرید</Link>
-        </li>
-        <li className="w-fit text-[0.75rem] text-gray-600 hover:text-orange-400 transition-all duration-400 font-medium">
-          <Link to="/dashboard">داشبورد</Link>
-        </li>
+        {links.map((link) => (
+          <li
+            key={link.id}
+            className="w-fit text-[0.75rem] text-gray-600 hover:text-orange-400 transition-all duration-400 font-medium"
+          >
+            <Link to={link.path}>{link.title}</Link>
+          </li>
+        ))}
       </ul>
       <ul className="flex flex-col gap-2">
         <p className="text-sm font-medium mb-4">ما را دنبال کنید</p>
@@ -21,10 +26,10 @@ export default function FooterLinksSection() {
           <a href="/">اینستاگرام</a>
         </li>
         <li className="w-fit text-[0.75rem] text-gray-600 hover:text-blue-600 transition-all duration-400 font-medium">
-          <a href="/shopping-cart">تلگرام</a>
+          <a href="/">تلگرام</a>
         </li>
         <li className="w-fit text-[0.75rem] text-gray-600 hover:text-black transition-all duration-400 font-medium">
-          <a href="/dashboard">توییتر</a>
+          <a href="/">توییتر</a>
         </li>
       </ul>
     </section>
