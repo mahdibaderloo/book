@@ -28,6 +28,10 @@ export interface Book {
   price: number;
 }
 
+export interface CartItems extends Book {
+  quantity: number;
+}
+
 export interface CartItemResponse {
   productId: number;
   productTitle: string;
