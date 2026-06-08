@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export default function HeaderForm() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("search") || "");
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (query.trim() === "") {
@@ -13,6 +16,10 @@ export default function HeaderForm() {
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
+
+    if (location.pathname !== "/") {
+      navigate("/");
+    }
 
     const trimmed = query.trim();
 
