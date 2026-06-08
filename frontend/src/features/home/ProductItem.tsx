@@ -6,17 +6,18 @@ import { addToCartApi, removeFromCartApi } from "../../services/cart";
 import type { RootState } from "../../store/store";
 import toast from "react-hot-toast";
 import { useCart } from "../../hooks/useCart";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ProductItem({ book }: { book: Book }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
 
+  const queryClient = useQueryClient();
+
   const token = localStorage.getItem("token");
   const { data: cart = [] } = useCart(token);
-
   const items = cart?.items ?? [];
-
   const isItemInCart = items.some(
     (item: CartItemResponse) => item.productId === book.id,
   );
@@ -31,6 +32,7 @@ export default function ProductItem({ book }: { book: Book }) {
       dispatch(addToCart(book));
 
       await addToCartApi(book.id, token);
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
     } else {
       toast.error("ابتدا وارد شوید");
     }
@@ -42,6 +44,7 @@ export default function ProductItem({ book }: { book: Book }) {
       dispatch(removeFromCart(book.id));
 
       await removeFromCartApi(book.id, token);
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
     } else {
       toast.error("ابتدا وارد شوید");
     }
