@@ -10,6 +10,7 @@ import { setUser } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import type { SignupUser } from "../types/types";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,12 +29,13 @@ export default function Signup() {
   function onSubmit(data: SignupUser) {
     mutate(data, {
       onSuccess: (user) => {
+        toast.success("ثبت نام با موفقیت انجام شد");
         dispatch(setUser(user));
         reset();
         navigate("/");
       },
-      onError: (error) => {
-        alert(error.message);
+      onError: () => {
+        toast.error("خطا هنگام ثبت نام. دوباره تلاش کنید");
       },
     });
   }
