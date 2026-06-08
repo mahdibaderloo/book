@@ -57,3 +57,13 @@ export interface SignupUser {
   username: string;
   password: string;
 }
+
+export interface AuthResponse {
+  user: User;
+  token: string;
+}
+export interface UserState {
+  user: User | null;
+  token: string | null;
+  isLogin: boolean;
+}

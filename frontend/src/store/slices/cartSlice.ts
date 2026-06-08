@@ -1,15 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { Book } from "../../types/types";
+import type { CartItems } from "../../types/types";
 
-interface CartItem extends Book {
-  quantity: number;
-}
-
-interface CartState {
-  items: CartItem[];
-}
-
-const initialState: CartState = {
+const initialState: { items: CartItems[] } = {
   items: JSON.parse(localStorage.getItem("books-cart") || "[]"),
 };
 
