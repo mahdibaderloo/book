@@ -1,5 +1,19 @@
 import { BASE_URL } from "../config/api";
 
+export async function getCartApi(token: string | null) {
+  const response = await fetch(`${BASE_URL}/carts`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch cart");
+  }
+
+  return response.json();
+}
+
 export async function addToCartApi(bookId: number, token: string | null) {
   const response = await fetch(`${BASE_URL}/carts/add`, {
     method: "POST",
