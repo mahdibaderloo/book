@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://book-front-one.vercel.app/")
+                .allowedOrigins("https://book-front-4v2on2of-mahdi-baderloo-projects.vercel.app/")
                 .allowedMethods("*")
                 .allowedHeaders("*");
     }
