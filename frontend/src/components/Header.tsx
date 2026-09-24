@@ -1,7 +1,6 @@
 import { BsCart3, BsPerson } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-import logo from "../assets/logo.png";
 import HeaderForm from "./HeaderForm";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
@@ -13,7 +12,7 @@ export default function Header() {
   return (
     <header className="flex items-center justify-center w-full p-4 font-noto bg-gray-50 fixed shadow z-50">
       <Link to="/" className="flex items-center" title="خانه">
-        <img src={logo} alt="logo" className="w-12" />
+        <img src="/logo.png" alt="logo" className="w-12" />
       </Link>
 
       <HeaderForm />
