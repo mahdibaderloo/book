@@ -6,7 +6,7 @@ services:
     ports:
       - "${APP_PORT:-8080}:8080"
     environment:
-      - DB_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB:-book}
+      - DB_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB:-books}
       - DB_USERNAME=${POSTGRES_USER:-postgres}
       - DB_PASSWORD=${POSTGRES_PASSWORD:-postgres}
     depends_on:
