@@ -45,7 +45,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-                "https://book-front-one.vercel.app",
+                "https://book-back-tk79.onrender.com",
                 "https://book-front-4v2on2of-mahdi-baderloo-projects.vercel.app",
                 "http://localhost:5173"
         ));
