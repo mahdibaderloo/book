@@ -41,14 +41,15 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
+@Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-                "https://book-back-tk79.onrender.com",
-                "https://book-front-4v2on2of-mahdi-baderloo-projects.vercel.app",
-                "http://localhost:5173"
+        configuration.setAllowedOriginPatterns(Arrays.asList(
+                "https://*.onrender.com",
+                "http://localhost:5173",
+                "http://localhost:3000"
         ));
+        
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
